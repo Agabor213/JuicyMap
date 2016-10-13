@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<h1>Rough Location Maps</h1>
+<body>
+<!--BEGIN NAVIGATION BAR-->
+		<ul id="navbar">
+  			<li class="navitem"><a href="index.html">MapDescription</a></li>
+  			<li class="navitem"><a class="active" href="Map1.html">Map1</a></li>
+  			<li class="navitem"><a href="Map2.html">Map2</a></li>
+  			<li class="navitem"><a href="Sources.html">Sources</a></li>
+  				
+  			</li>
+
+		</ul>
+<div id="map" style="width:100%;height:500px"></div>
+
+<script>
+function myMap() {
+  var myCenter = new google.maps.LatLng(23.5333382,-75.835522);
+  var CYA = new google.maps.LatLng(21.1214887,-86.9193502);
+    var mapCanvas = document.getElementById("map");
+  var mapOptions = {
+     center: myCenter, 
+     zoom: 5
+  };
+  var map = new google.maps.Map(mapCanvas, mapOptions);
+  var marker = new google.maps.Marker({
+  position:myCenter,
+  animation:google.maps.Animation.BOUNCE
+  });
+  var marke = new google.maps.Marker({
+  position:CYA,
+  animation:google.maps.Animation.BOUNCE
+  });
+  google.maps.event.addListener(marker,'click',function() {
+  map.setZoom(9);
+  map.setCenter(marker.getPosition());
+  });
+  google.maps.event.addListener(marke,'click',function() {
+  map.setZoom(9);
+  map.setCenter(marke.getPosition());
+  });
+  marker.setMap(map);
+  marke.setMap(map);
+  
+  var myTrip = [CYA,myCenter];
+var flightPath = new google.maps.Polyline({
+  path:myTrip,
+  strokeColor:"red",
+  strokeOpacity:1,
+  strokeWeight:2
+});
+ flightPath.setMap(map);
+
+
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4GsB_2SimZJN0sJZDjHPwnv6dLAeYxP0&callback=myMap"
+    async defer></script>
+
+</body>
+</html>
